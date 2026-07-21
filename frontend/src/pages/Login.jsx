@@ -29,7 +29,7 @@ const Login = () => {
       const amount = 500;
 
       const res = await fetch(
-        "http://localhost:4000/payment/create-order",
+        "https://merlit-candles.onrender.com/payment/create-order",
         {
           method: "POST",
           headers: {
