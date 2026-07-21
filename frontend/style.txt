@@ -1,0 +1,20 @@
+
+
+Deep Black / Charcoal → background
+#0B0B0B or #111111
+Warm Gold / Copper → primary accent
+#C8A46B (gold tone)
+#B87333 (copper tone)
+Soft Beige / Cream → text highlights
+#F5E6C8
+
+
+🎨 HEADER (Navbar) Styling
+✅ Default (Top of Page - Transparent Look)
+Background → transparent
+Text → #F5E6C8 (soft beige)
+Logo → original (gold tone)
+✅ On Scroll (Sticky Navbar)
+Background → #0B0B0B (deep black)
+Text → #F5E6C8
+Border bottom → subtle gold line
