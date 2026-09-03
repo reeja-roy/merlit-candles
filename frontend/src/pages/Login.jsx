@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {handleLoginSubmit } from "../services/auth.service";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const Login = () => {
     password: "",
   });
 
+
   const handleLogin = (e) => {
     setLoginData({
       ...loginData,
@@ -16,60 +18,21 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Login API can go here
-
-    navigate("/home");
-  };
-
-  const handlePayment = async () => {
+  const handleSubmit = async (e) => {
     try {
-      const amount = 500;
+      e.preventDefault();
+      const loginResponse = await handleLoginSubmit(loginData);
 
-      const res = await fetch(
-        "https://merlit-candles.onrender.com/payment/create-order",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ amount }),
-        }
-      );
+      if (loginResponse.token) {
 
-      const data = await res.json();
-
-      if (!data.success) {
-        alert("Unable to create order");
-        return;
+// After successful login
+localStorage.setItem("user", JSON.stringify(loginResponse));
+        navigate("/");
+      } else {
+        alert("invalid email or password");
       }
-
-     console.log("Key:", process.env.REACT_APP_RAZORPAY_KEY);
-
-     
-const options = {
-  key: process.env.REACT_APP_RAZORPAY_KEY,
-  amount: data.order.amount,
-  currency: data.order.currency,
-  name: "My Store",
-  description: "Test Transaction",
-  order_id: data.order.id,
-  handler: async function (response) {
-    console.log(response);
-  },
-};
-      const razor = new window.Razorpay(options);
-
-      razor.on("payment.failed", function (response) {
-        alert(response.error.description);
-      });
-
-      razor.open();
     } catch (err) {
       console.log(err);
-      alert("Something went wrong");
     }
   };
 
@@ -123,14 +86,7 @@ const options = {
           >
             Login
           </button>
-
-          <button
-            type="button"
-            onClick={handlePayment}
-            className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700"
-          >
-            Pay Now ₹500
-          </button>
+          <p className="flex justify-center items-center">create an account?<a className="text-blue-400" href="/register">register</a></p>
         </form>
       </div>
     </div>
