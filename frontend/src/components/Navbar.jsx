@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [user, setUserData] = useState(null);
-  const[drawer,setDrawer] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
